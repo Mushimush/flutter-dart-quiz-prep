@@ -8,8 +8,8 @@
 
 1. **Read Part 1** (Concepts) — learn the ideas.
 2. **Read Part 2** (Cheat Sheet) — keep this open during practice.
-3. **Read Part 3** (Quiz Answer Key with Reasoning) — verify your understanding.
-4. **Quick-recap the bold rules at the bottom** the night before.
+3. **Read Part 3** (Night-Before Recap) — quick-fire bold rules to skim before the test.
+4. **Try `QUESTIONS.md`** — 36 practice questions with collapsible answers to test understanding.
 
 ---
 
@@ -310,50 +310,7 @@ Because the contents change as the user types, **TextField is a StatefulWidget**
 
 ---
 
-# PART 3 — ANSWER KEY (with reasoning)
-
-| # | Question (short form) | Answer | Why |
-|---|---|---|---|
-| 1 | Is `Text` a StatefulWidget? | **false** | `Text` extends `StatelessWidget` — its content doesn't change after build. |
-| 2 | Is `FilledButton`'s `onPressed` required? | **true** | Required named parameter (passing `null` disables the button, but you must pass it). |
-| 3 | Is `TextField` a StatefulWidget? | **true** | The text inside changes as the user types — needs state. |
-| 4 | Is `TextButton`'s `child` required? | **true** | A button must have something inside to display. |
-| 5 | Flutter is a low-code framework for cross-platform apps. | **false** | Flutter is a full SDK, not low-code/no-code. (Note: it IS cross-platform — but it's not "low-code".) |
-| 6 | Dart only works on Android/Windows/Web, NOT iOS. | **false** | Dart/Flutter fully supports iOS. |
-| 7 | Flutter develops high-performance native apps for Android and iOS. | **true** | Compiles to native ARM/x64 code on both. |
-| 8 | DartPad only runs Dart, not Flutter. | **false** | DartPad runs both Dart console programs AND Flutter previews. |
-| 9 | Get user input from a TextField controller. | **`_nameController.text`** | The `.text` property holds the entered string. |
-| 10 | Clear user input. | **`_numController.text = '';`** | Setting `.text` to empty string clears the field. |
-| 11 | Parameter of `Row`. | **`children`** | Row holds multiple widgets in a list. |
-| 12 | Parameter of `Column`. | **`children`** | Column also holds a list of widgets. |
-| 13 | Which class's `build()` is overridden for a StatefulWidget? | **`State`** | The build method lives in the State subclass, not the widget itself. |
-| 14 | What CANNOT be passed to `runApp()`? | **A String object** | `runApp()` requires a Widget; String is not a widget. |
-| 15 | Output of `print('The difference is ${m-n}')` where `m=11`, `n=11.8`. | **"The difference is -0.8"** | `11 - 11.8 = -0.8`, interpolated into the string. |
-| 16 | Correct boolean declaration. | **`bool isValid = true;`** | `bool` is the keyword; `true`/`false` are the literal values. |
-| 17 | `var r = {'Betty':10, 'Allan':30};` — what is `r`? | **It's a Map** | Curly braces with `key: value` pairs create a Map. (The question has a typo using `v` — ignore it.) |
-| 18 | `final e; e = 10;` causes compilation error. | **true** | `final` must be initialized at declaration. |
-| 19 | Correct call to `getResult(String operator, int n1, {int n2=1})`. | **`getResult('sqrt', 9);`** | Provides the two required positional args; `n2` uses its default. (Note: `getResult('+', 9, 10);` works too because positional args may follow positional args — if both appear as options, `getResult('+', 9, 10)` is also valid.) |
-| 20 | Correct call to `getProduct(double, double, double, {double d4=1})`. | **`getProduct(16, 9, 19);`** | Provides exactly the three required positional args; `d4` defaults to 1. |
-| 21 | NOT a correct OutlinedButton creation. | **The one missing `onPressed`** | `onPressed` is required; `onLongPress` alone isn't enough. |
-| 22 | `int? x; var y=40; var val = x ?? y; print(val);` | **40** | `x` is null, so `??` returns `y` (40). |
-| 23 | Only Dart is open source. | **false** | Both are open source. |
-| 24 | Both Flutter and Dart are open source. | **true** | Both released under BSD-style license. |
-| 25 | Everything in Dart is an object. | **true** | All values, including numbers and null, are objects. |
-| 26 | Dart is a pure OOP language. | **true** | Official Dart description — every value is an object. |
-| 27 | Flutter is a UI framework, Dart is a programming language. | **true** | That's exactly the relationship. |
-| 28 | `int i=5;` — is `i` both int AND double? | **false** | Dart treats int and double as distinct types. |
-| 29 | `double d=5.0;` — is `d` both double AND int? | **false** | Same reason — distinct types. |
-| 30 | Which has a `home` parameter? | **MaterialApp** | `MaterialApp.home` defines the root screen. |
-| 31 | Parameter of `Center`. | **`child`** | Center holds exactly one child. |
-| 32 | Which has an `appBar` parameter? | **Scaffold** | `Scaffold.appBar` puts an AppBar at the top. |
-| 33 | NOT a correct String creation. | **`var s = {"Hi"};`** | Curly braces create a Set, not a String. |
-| 34 | Valid Dart entry point. | **`void main(){}`** | Lowercase main, void return, no params required. |
-| 35 | Widget for user input. | **`TextField`** | The Material input widget. |
-| 36 | Class where build is overridden for StatefulWidget. | **`State`** | The UI is built in the State subclass's build method. |
-
----
-
-# PART 4 — NIGHT-BEFORE RECAP
+# PART 3 — NIGHT-BEFORE RECAP
 
 Read these out loud:
 
