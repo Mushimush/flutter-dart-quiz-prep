@@ -9,14 +9,13 @@ Designed for absolute beginners preparing for a lab quiz. Covers the 9 core conc
 | File | Purpose |
 |---|---|
 | [`QUESTIONS.md`](QUESTIONS.md) | 36 practice questions with collapsible answers, code snippets, and explanations |
-| [`STUDY_GUIDE.md`](STUDY_GUIDE.md) | Concept-by-concept walkthrough + cheat sheet + answer key |
-| [`MAD_Quiz_Prep_Slides.pptx`](MAD_Quiz_Prep_Slides.pptx) | 45-slide deck for classroom teaching |
+| [`STUDY_GUIDE.md`](STUDY_GUIDE.md) | Concept-by-concept walkthrough + cheat sheet + night-before recap |
 
 ## How to use
 
 1. **Read `STUDY_GUIDE.md`** first — understand the concepts.
 2. **Try `QUESTIONS.md`** closed-book — collapsed `<details>` tags hide the answers until you click.
-3. **Review the slides** for a visual recap before the quiz.
+3. **Review the night-before recap** in `STUDY_GUIDE.md` Part 3 before the quiz.
 
 ## Topics covered
 
