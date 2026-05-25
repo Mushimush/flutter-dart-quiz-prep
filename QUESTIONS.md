@@ -90,25 +90,38 @@ void main() {
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: C
+#### Answer: A
 
 Let's break it down:
-- `final k;` declares `k` as a `final` variable **without** assigning it
-- `k = 25;` tries to assign a value later
-- This causes a **compile error**: `final` variables must be initialized at the moment they're declared
+- `final k;` declares a **local** `final` variable without an initializer — this is allowed
+- `k = 25;` is the first (and only) assignment — `final` permits exactly one
+- `print(k);` then reads `k` after it's been assigned → prints `25`
 
-**Fix:**
+This is called **definite assignment**: Dart lets you declare a local `final` without an initializer as long as the compiler can prove it's assigned exactly once before use.
+
+**Important distinction — local vs instance/static `final`:**
+
+| Where it lives | Must initialize at declaration? |
+|---|---|
+| **Local** variable (inside a function) | **No** — assign later, but exactly once |
+| **Instance** field (inside a class) | **Yes** — at declaration or in the constructor |
+| **Top-level / static** variable | **Yes** — at declaration |
+
+So this would fail:
 ```dart
-final k = 25;   // ✓ initialize at declaration
-print(k);
+class Box {
+  final k;        // ✗ instance field — needs init at declaration or in constructor
+}
 ```
 
-**Key Rule — `var` vs `final` vs `const`:**
+But the snippet in the question is a **local** variable inside `main()`, so it compiles.
+
+**`var` vs `final` vs `const` (local variables):**
 
 | Keyword | Must initialize at declaration? | Can reassign later? |
 |---|---|---|
 | `var` | No | Yes |
-| `final` | **Yes** | No |
+| `final` | No (but must be assigned exactly once before use) | No |
 | `const` | **Yes** (and must be compile-time constant) | No |
 
 </p>

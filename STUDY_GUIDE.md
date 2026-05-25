@@ -68,13 +68,28 @@ final age = 30;              // set ONCE, cannot change
 const pi = 3.14;             // compile-time constant
 ```
 
-### CRITICAL rule about `final`
+### Rule about `final` — local vs instance
+
+For a **local** `final` variable, you may declare it without an initializer **as long as it's assigned exactly once before it's read**:
 
 ```dart
-final e;       // ❌ COMPILE ERROR
-e = 10;        // too late — final must be initialized at declaration
+void main() {
+  final e;     // ✅ OK — local final, not yet assigned
+  e = 10;      // ✅ first (and only) assignment
+  print(e);    // → 10
+  e = 20;      // ❌ COMPILE ERROR — final can't be reassigned
+}
 ```
-Fix: `final e = 10;`
+
+But for an **instance field** (declared inside a class), `final` *must* be initialized at the declaration or in the constructor:
+
+```dart
+class Box {
+  final e;     // ❌ COMPILE ERROR — instance final needs init
+}
+```
+
+Best practice in beginner code: just initialize at the declaration — `final e = 10;` — so the rule works everywhere.
 
 ### Types are strict
 
@@ -299,7 +314,8 @@ Because the contents change as the user types, **TextField is a StatefulWidget**
 | Get TextField input | `controller.text` |
 | Clear TextField input | `controller.text = '';` |
 | Buttons require | Both `onPressed` and `child` |
-| `final x;` then `x = 10;` | ❌ Compile error |
+| `final x;` then `x = 10;` (local var) | ✅ OK — assigned exactly once |
+| `final x;` as an **instance field** | ❌ Compile error — must init at declaration / in constructor |
 | `int` and `double` | Are **different types** |
 | `bool` literal | `true` or `false` (not `"true"`, not `1`) |
 | `{'key': value}` is a | **Map** |
@@ -324,7 +340,7 @@ Read these out loud:
 8. **`children:` (list `[...]`) → Row, Column.**
 9. **Buttons need BOTH `onPressed` AND `child`.**
 10. **Get TextField input with `controller.text`. Clear with `controller.text = '';`**
-11. **`final` must be initialized at declaration.**
+11. **`final` = assigned exactly once. For a local `final`, declaration without an initializer is fine as long as you assign it before reading. For instance/static fields, it MUST be initialized at declaration (or in the constructor).**
 12. **`int` ≠ `double` in Dart's type system.**
 13. **`{'Hi'}` is a Set. `'Hi'` or `"Hi"` is a String.**
 14. **`{'key': value}` is a Map.**
