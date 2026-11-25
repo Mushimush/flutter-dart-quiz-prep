@@ -74,10 +74,10 @@ For a **local** `final` variable, you may declare it without an initializer **as
 
 ```dart
 void main() {
-  final e;     // ✅ OK — local final, not yet assigned
-  e = 10;      // ✅ first (and only) assignment
-  print(e);    // → 10
-  e = 20;      // ❌ COMPILE ERROR — final can't be reassigned
+  final tray;  // ✅ OK — local final, not yet assigned
+  tray = 4;    // ✅ first (and only) assignment
+  print(tray); // → 4
+  tray = 9;    // ❌ COMPILE ERROR — final can't be reassigned
 }
 ```
 
@@ -85,34 +85,33 @@ But for an **instance field** (declared inside a class), `final` *must* be initi
 
 ```dart
 class Box {
-  final e;     // ❌ COMPILE ERROR — instance final needs init
+  final tray;  // ❌ COMPILE ERROR — instance final needs init
 }
 ```
 
-Best practice in beginner code: just initialize at the declaration — `final e = 10;` — so the rule works everywhere.
+Best practice in beginner code: just initialize at the declaration — `final tray = 4;` — so the rule works everywhere.
 
 ### Types are strict
 
 - `int` (whole: `5`) and `double` (decimal: `5.0`) are **different types**.
-- `int i = 5;` → `i` is an `int`, **not also a double**.
-- `double d = 5.0;` → `d` is a `double`, **not also an int**.
+- A variable declared `int` holds whole numbers only. It is never a `double` as well.
+- A variable declared `double` is never an `int` as well: `int q = 2.5;` does not compile.
 
 ### Booleans must be `bool` with literal `true`/`false`
 
 ```dart
-bool isValid = true;       // ✅ correct
-bool isValid = "true";     // ❌ that's a String
-bool isValid = 1;          // ❌ that's an int
-boolean isValid = false;   // ❌ keyword is "bool" not "boolean"
+bool isRaining = false;    // ✅ correct
+bool isRaining = "wet";    // ❌ that's a String
+bool isRaining = 5;        // ❌ that's an int
+boolean isRaining = true;  // ❌ keyword is "bool" not "boolean"
 ```
 
 ### Strings — single OR double quotes
 
 ```dart
-var s = 'Hi';         // ✅ String
-var s = "Hi";         // ✅ String
-String s = "Hi";      // ✅ String
-var s = {"Hi"};       // ❌ THIS IS A SET, NOT A STRING — curly braces make a Set
+var food = 'Laksa';      // ✅ String
+String food = "Laksa";   // ✅ String
+var food = {'Laksa'};    // ❌ THIS IS A SET, NOT A STRING — curly braces make a Set
 ```
 
 ### String interpolation
@@ -129,8 +128,8 @@ print('Hi $name, next year: ${age + 1}');
 ### Parsing strings into numbers
 
 ```dart
-int.parse('11')        // → 11 (int)
-double.parse('11.8')   // → 11.8 (double)
+int.parse('42')        // → 42 (int)
+double.parse('6.5')    // → 6.5 (double)
 ```
 
 ---
@@ -148,7 +147,7 @@ Three "containers" — tell them apart by their **brackets**:
 **Trick to remember Map vs Set:** if it has `key: value` pairs, it's a Map. If it's just bare values in `{}`, it's a Set.
 
 ```dart
-var r = {'Betty': 10, 'Allan': 30};   // ✅ this is a MAP
+var fares = {'Bus': 2, 'MRT': 3};   // ✅ this is a MAP
 ```
 
 ---
@@ -158,10 +157,10 @@ var r = {'Betty': 10, 'Allan': 30};   // ✅ this is a MAP
 In Dart, normal variables **cannot be null**. To allow null, add `?` to the type:
 
 ```dart
-int? x;        // x can be null
-int y = 40;
-var val = x ?? y;       // if x is null, use y
-print(val);             // → 40
+int? seats;               // seats can be null
+int spare = 18;
+var left = seats ?? spare;   // if seats is null, use spare
+print(left);                 // → 18
 ```
 
 `??` = "use the left side, but if it's null, use the right side." Like a backup plan.
@@ -189,12 +188,13 @@ greet('Sam');                   // ❌ named params need the label
 ### Mixed: positional first, then named
 
 ```dart
-void getResult(String operator, int n1, {int n2 = 1}) { ... }
+void grade(String name, int mark, {int bonus = 0}) { ... }
 
-getResult('+', 9, 10);          // ✅ all positional, n2=10
-getResult('sqrt', 9);           // ✅ n2 defaults to 1
-getResult('max', n2: 10);       // ❌ missing required positional n1
-getResult(100, n2: 101, 'min'); // ❌ positional must come BEFORE named
+grade('Ana', 70);            // ✅ bonus defaults to 0
+grade('Ana', 70, bonus: 5);  // ✅ named value needs its label
+grade('Ana', 70, 5);         // ❌ bonus is named, so a bare 5 is not allowed
+grade('Ana', bonus: 5);      // ❌ missing required positional mark
+grade(70, bonus: 5, 'Ana');  // ❌ 70 is in the String name slot
 ```
 
 ---
@@ -267,8 +267,8 @@ Column(children: [Text('A'), Text('B')]);  // plural with []
 ### Buttons require BOTH `onPressed` AND `child`
 
 ```dart
-OutlinedButton(child: Text('Submit'), onPressed: () {});   // ✅
-OutlinedButton(onLongPress: () {}, child: Text('Reset'));  // ❌ missing onPressed
+OutlinedButton(onPressed: () {}, child: Text('Next'));         // ✅
+OutlinedButton(onFocusChange: (f) {}, child: Text('Skip'));   // ❌ missing onPressed
 ```
 
 ---
@@ -278,19 +278,19 @@ OutlinedButton(onLongPress: () {}, child: Text('Reset'));  // ❌ missing onPres
 How to **read** what the user typed into a TextField:
 
 ```dart
-final _nameController = TextEditingController();
+final _cityController = TextEditingController();
 
 // Attach to the TextField:
-TextField(controller: _nameController);
+TextField(controller: _cityController);
 
 // Read the typed text:
-print(_nameController.text);      // ✅ .text gives you the input
+print(_cityController.text);      // ✅ .text gives you the input
 
 // Clear the typed text:
-_nameController.text = '';        // ✅ empty string clears it
+_cityController.text = '';        // ✅ empty string clears it
 ```
 
-**There is no `.value`, `.number`, or `.string` property — only `.text`.**
+**For the typed String, use `.text`.** (`.value` also exists, but it is a `TextEditingValue` object, not a String.)
 
 Because the contents change as the user types, **TextField is a StatefulWidget**.
 

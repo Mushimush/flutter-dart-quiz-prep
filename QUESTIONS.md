@@ -44,28 +44,29 @@ Result: `Difference is -0.5`
 
 ---
 
-###### 2. Which of the following is a valid Dart entry point?
+###### 2. Why does this program not start?
 
-- A: `Void main() {}`
-- B: `void Main(String args) {}`
-- C: `void main() {}`
-- D: `Void Main() {}`
+```dart
+void Main() {
+  print('Welcome');
+}
+```
+
+- A: `print` needs double quotes
+- B: The function must be named `main`, with a small `m`
+- C: `void` must be written `Void`
+- D: `Main` must be given an argument
 
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: C
+#### Answer: B
 
-Let's analyze each option:
+Dart is case-sensitive, and every Dart program starts at **`main`**. `Main` is just another function name, so Dart finds no starting point.
 
-| Option | Code | Issue |
-|---|---|---|
-| **A ✗** | `Void main() {}` | `Void` is capitalized — Dart is case-sensitive |
-| **B ✗** | `void Main(...) {}` | `Main` is capitalized — must be lowercase `main` |
-| **C ✓** | `void main() {}` | Correct! Lowercase, `void` return |
-| **D ✗** | `Void Main() {}` | Both `Void` and `Main` are wrong cases |
-
-**Key Rule:** Every Dart program starts at exactly **`main`** — lowercase, returning `void` (or `Future<void>`). No alternatives.
+- Single or double quotes both work for a String.
+- `void` is all lowercase.
+- `main` does not need arguments.
 
 </p>
 </details>
@@ -152,8 +153,8 @@ Let's break it down:
 
 **Common confusion:**
 ```dart
-int i = 5;       // i is ONLY an int
-double d = 5.0;  // d is ONLY a double
+int trips = 8;      // trips is ONLY an int
+double km = 3.2;   // km is ONLY a double
 ```
 
 They look interchangeable in math (`5 + 5.0 = 10.0`), but the static types are different.
@@ -374,195 +375,129 @@ Let's analyze each option:
 
 ---
 
-###### 11. Which parameter belongs to the `Column` widget?
+###### 11. Which line compiles?
 
-- A: `child`
-- B: `children`
-- C: `Children`
-- D: `Color`
+- A: `Column(child: Text('A'))`
+- B: `Column(Children: [Text('A')])`
+- C: `Column(children: [Text('A'), Text('B')])`
+- D: `Column(children: Text('A'))`
 
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: B
+#### Answer: C
 
-Let's break it down:
-- `Column` is a **multi-child layout widget** — it stacks widgets vertically
-- It takes a **list** of widgets via `children:` (plural, lowercase)
-- `child:` (singular) is used by single-child widgets like `Center`, `Container`, and buttons
+- **A ✗** `Column` has no `child`. It holds many widgets.
+- **B ✗** Dart is case-sensitive, so `Children` does not exist.
+- **C ✓** `children` with a **list** `[ ]`.
+- **D ✗** `children` needs a list, even for one widget.
 
-**Key Rule — Singular vs plural:**
-
-| Parameter | Used by | Takes |
-|---|---|---|
-| `child:` | Center, Container, Padding, Buttons | One widget |
-| `children:` | Row, Column, ListView, Stack | A list `[w1, w2, w3]` |
-
-Think grammar: one *child*, multiple *children*. Dart is case-sensitive — `Children` (capital C) is wrong.
+**Key Rule:** `child:` takes one widget (Center, Container, buttons). `children:` takes a list (Row, Column).
 
 </p>
 </details>
 
 ---
 
-###### 12. Which of the following could **NOT** be passed to `runApp()`?
+###### 12. Which line causes a compile error?
 
-- A: A `Scaffold` object
-- B: A `MaterialApp` object
-- C: A `Container` object
-- D: An `int` object
+- A: `runApp(Center(child: Text('Hi')));`
+- B: `runApp(Icon(Icons.home));`
+- C: `runApp(3 > 2);`
+- D: `runApp(Column(children: []));`
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: C
+
+`runApp()` takes a **Widget**. `3 > 2` is a `bool`, so it is rejected. `Center`, `Icon` and `Column` are all widgets.
+
+**Key Rule:** numbers, bools, Strings and lists are not widgets.
+
+</p>
+</details>
+
+---
+
+###### 13. `CartPage` is a StatefulWidget. Where does the code that draws the page go?
+
+```dart
+class CartPage extends StatefulWidget {
+  // (1)
+}
+class _CartPageState extends State<CartPage> {
+  // (2)
+}
+```
+
+- A: A `build()` method at (1)
+- B: A `build()` method at (2)
+- C: A `createState()` method at (2)
+- D: A `runApp()` call at (1)
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+- (1) is the widget class. It has only `createState()`.
+- (2) is the State class. It keeps the data that changes, and its `build()` draws the page.
+
+**Key Rule:** for a StatelessWidget, `build()` is in the widget class itself. For a StatefulWidget, it is in the State class.
+
+</p>
+</details>
+
+---
+
+###### 14. You want `LoginPage()` to be the first screen of the app. Which line is correct?
+
+- A: `MaterialApp(body: LoginPage())`
+- B: `MaterialApp(home: LoginPage())`
+- C: `Scaffold(home: LoginPage())`
+- D: `MaterialApp(child: LoginPage())`
+
+<details><summary><b>Answer</b></summary>
+<p>
+
+#### Answer: B
+
+`MaterialApp` uses `home:` for the first screen.
+
+- `body:` belongs to `Scaffold`.
+- `Scaffold` has no `home:`.
+- `MaterialApp` has no `child:`.
+
+</p>
+</details>
+
+---
+
+###### 15. Which code shows a bar with the title 'Menu' at the top of the page?
+
+- A: `MaterialApp(home: Text('Hi'), appBar: AppBar(title: Text('Menu')))`
+- B: `Center(appBar: AppBar(title: Text('Menu')))`
+- C: `Scaffold(children: [AppBar(title: Text('Menu'))])`
+- D: `Scaffold(appBar: AppBar(title: Text('Menu')), body: Text('Hi'))`
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: D
 
-Let's break it down:
-- `runApp()` is declared as `void runApp(Widget app)`
-- It requires a **Widget** to render at the root of the app
-- `Scaffold`, `MaterialApp`, `Container`, and `Text` are all Widgets ✓
-- `int` (and `String`, `bool`, etc.) is **not** a widget ✗
-
-**Common valid calls:**
-```dart
-runApp(MaterialApp(home: Scaffold(...)));    // ✓
-runApp(MyApp());                              // ✓ where MyApp extends Widget
-runApp(Text('Hello'));                        // ✓ (works but unstyled)
-```
-
-**Invalid:**
-```dart
-runApp('Hello');     // ✗ String is not a Widget
-runApp(42);          // ✗ int is not a Widget
-```
+`Scaffold` is the page layout. It takes `appBar:` for the bar and `body:` for the rest of the page. `MaterialApp` and `Center` have no `appBar:`, and `Scaffold` has no `children:`.
 
 </p>
 </details>
 
 ---
 
-###### 13. In which class is the `build` method overridden to build the UI for a **Stateful** widget?
-
-- A: `StatefulWidget`
-- B: `StatelessWidget`
-- C: `State`
-- D: All of the mentioned
-
-<details><summary><b>Answer</b></summary>
-<p>
-
-#### Answer: C
-
-Let's break it down:
-- A `StatefulWidget` itself has **no** `build` method — it only has `createState()`
-- The UI is drawn by the `build(BuildContext)` method on the associated **`State`** subclass
-- That separation lets the State persist while the widget gets rebuilt
-
-```dart
-class Counter extends StatefulWidget {
-  @override
-  State<Counter> createState() => _CounterState();   // no build here
-}
-
-class _CounterState extends State<Counter> {
-  @override
-  Widget build(BuildContext context) {                // build lives HERE
-    return Text('count');
-  }
-}
-```
-
-**Key Rule:**
-
-| Widget type | Where `build()` lives |
-|---|---|
-| `StatelessWidget` | Inside the widget class itself |
-| `StatefulWidget` | Inside its `State` subclass |
-
-</p>
-</details>
-
----
-
-###### 14. Which of the following widgets has a parameter named `home`?
-
-- A: `Scaffold`
-- B: `Container`
-- C: `MaterialApp`
-- D: `Column`
-
-<details><summary><b>Answer</b></summary>
-<p>
-
-#### Answer: C
-
-Let's break it down:
-- `MaterialApp` is the root widget of a Material-design app
-- Its `home:` parameter defines the **default route's widget** (the first screen shown)
-- `Scaffold` uses `appBar:`, `body:`, `floatingActionButton:` — not `home`
-- `Container` uses `child:`, `color:`, `padding:` — not `home`
-- `Column` uses `children:` — not `home`
-
-```dart
-MaterialApp(
-  home: Scaffold(
-    appBar: AppBar(title: Text('Hi')),
-    body: Center(child: Text('Welcome')),
-  ),
-);
-```
-
-**Memorize this pairing:** `home:` → `MaterialApp`, `appBar:` → `Scaffold`.
-
-</p>
-</details>
-
----
-
-###### 15. Which of the following widgets has a parameter named `appBar`?
-
-- A: `MaterialApp`
-- B: `Scaffold`
-- C: `Container`
-- D: `Row`
-
-<details><summary><b>Answer</b></summary>
-<p>
-
-#### Answer: B
-
-Let's break it down:
-- `Scaffold.appBar` slots an `AppBar` widget into the **top** of a Material page layout
-- `MaterialApp` uses `home:`, not `appBar`
-- `Container` and `Row` don't have an `appBar` parameter
-
-```dart
-Scaffold(
-  appBar: AppBar(title: Text('My App')),
-  body: Center(child: Text('Body')),
-);
-```
-
-**Key Rule — Common parameter ownership:**
-
-| Widget | Key parameter |
-|---|---|
-| `MaterialApp` | `home:` |
-| `Scaffold` | `appBar:`, `body:`, `floatingActionButton:` |
-| `Center` | `child:` |
-| `Container` | `child:`, `color:`, `padding:` |
-| `Row` / `Column` | `children:` |
-
-</p>
-</details>
-
----
-
-###### 16. Which UI widget allows the user to enter data?
+###### 16. A form needs a box where the user types a postal code. Which widget do you use?
 
 - A: `Text`
-- B: `Label`
-- C: `TextInput`
+- B: `Container`
+- C: `Icon`
 - D: `TextField`
 
 <details><summary><b>Answer</b></summary>
@@ -570,27 +505,7 @@ Scaffold(
 
 #### Answer: D
 
-Let's break it down:
-- `TextField` is the **Material input widget** for typed user input — it's a `StatefulWidget`
-- `Text` is **read-only** — it just displays text
-- `Label` and `TextInput` are **not** Flutter widgets (those names belong to other frameworks)
-
-```dart
-final _controller = TextEditingController();
-
-TextField(
-  controller: _controller,
-  decoration: InputDecoration(labelText: 'Enter your name'),
-);
-```
-
-**Key Rule:**
-
-| Need | Use |
-|---|---|
-| Display text (read-only) | `Text` |
-| Accept user input | `TextField` |
-| Multi-line styled input | `TextFormField` (with form validation) |
+`TextField` accepts typing. `Text` and `Icon` only display something, and `Container` is a box for layout.
 
 </p>
 </details>
@@ -766,35 +681,19 @@ For `StatefulWidget`, the `build()` method lives in the **`State`** subclass, no
 
 ---
 
-###### 21. Which of the following parameters belongs to the `Row` widget?
+###### 21. You want a star and the number 5 side by side. Which line compiles?
 
-- A: `child`
-- B: `Child`
-- C: `children`
-- D: `color`
+- A: `Row(child: [Icon(Icons.star), Text('5')])`
+- B: `Row([Icon(Icons.star), Text('5')])`
+- C: `Row(children: [Icon(Icons.star), Text('5')])`
+- D: `Row(children: Icon(Icons.star), Text('5'))`
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: C
 
-Let's break it down:
-- `Row` lays out widgets **horizontally** and holds **multiple** of them
-- Like `Column`, it takes a list via `children:`
-- `child:` (lowercase, singular) and `Child:` (capitalized, doesn't exist) are wrong
-- `color:` isn't a Row parameter
-
-```dart
-Row(
-  children: [
-    Icon(Icons.star),
-    Text('Rated'),
-    Icon(Icons.star_border),
-  ],
-);
-```
-
-**Mnemonic:** Row and Column = **rooms full of children** (`children: [...]`). Center and Container = **stroller with one child** (`child: ...`).
+`Row` takes a **list** through the named parameter `children:`. A uses the wrong name, B leaves the name out, and D leaves out the list brackets.
 
 </p>
 </details>
@@ -834,39 +733,20 @@ Container(
 
 ---
 
-###### 23. In which class is the `build` method overridden to build the UI for a **Stateless** widget?
+###### 23. How many classes do you write for one StatelessWidget page, and for one StatefulWidget page?
 
-- A: `State`
-- B: `StatefulWidget`
-- C: `StatelessWidget`
-- D: All of the mentioned
+- A: 1 and 1
+- B: 1 and 2
+- C: 2 and 1
+- D: 2 and 2
 
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: C
+#### Answer: B
 
-Let's break it down:
-- For a **`StatelessWidget`**, the `build()` method is overridden **directly in the widget class**
-- This makes sense because there's no separate state to manage
-
-```dart
-class Hello extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {        // build lives HERE
-    return Text('Hi');
-  }
-}
-```
-
-**Compare with StatefulWidget:**
-
-| Widget type | Where `build()` lives |
-|---|---|
-| `StatelessWidget` | **Inside the widget class itself** |
-| `StatefulWidget` | Inside its `State` subclass (NOT in the widget) |
-
-Why the difference? StatefulWidgets separate the *configuration* (the widget) from the *mutable state*. The widget can be re-created, but the State persists and owns `build()`.
+- **Stateless: 1.** The widget class has `build()` itself.
+- **Stateful: 2.** The widget class has `createState()`, and the State class has `build()`.
 
 </p>
 </details>
@@ -942,40 +822,23 @@ ElevatedButton(child: Text('Tap'));                                        // �
 
 ---
 
-###### 26. Is `TextButton`'s `child` parameter required?
+###### 26. What is wrong with this button?
 
-- A: No — `child` defaults to `Text('Button')`
-- B: Yes — `child` is required on all Material buttons
-- C: Only required when `onPressed` is null
-- D: No — you can use `label` instead
+```dart
+TextButton(onPressed: () {})
+```
+
+- A: Nothing, it shows an empty button
+- B: `onPressed` cannot be an empty function
+- C: The required `child` is missing
+- D: It needs `children: []` instead
 
 <details><summary><b>Answer</b></summary>
 <p>
 
-#### Answer: B
+#### Answer: C
 
-Let's break it down:
-- All Material buttons require **BOTH** `onPressed` and `child`
-- `child` is what's displayed inside the button — usually a `Text` widget
-- There is no `label` parameter or default fallback
-
-```dart
-TextButton(
-  onPressed: () {},
-  child: Text('Cancel'),     // required
-);
-```
-
-**Key Rule — Button essentials:**
-
-Every Material button needs:
-
-| Parameter | Purpose |
-|---|---|
-| `onPressed:` | What happens when tapped (can be `null` to disable) |
-| `child:` | What's displayed inside (usually `Text`, can be `Icon`, `Row`, etc.) |
-
-Forgetting either causes a compile error.
+Material buttons such as `TextButton` need **both** `onPressed` and `child`. Without `child`, this does not compile. An empty function `() {}` is fine for `onPressed`.
 
 </p>
 </details>
@@ -1170,34 +1033,28 @@ f(c: 3, 1, 2);         // ✗ named must come AFTER positional
 
 ---
 
-###### 32. What is the correct call to the function below?
+###### 32. Which call compiles?
 
 ```dart
-double getProduct(double d1, double d2, double d3, {double d4 = 1}) {
-  return d1 * d2 * d3 * d4;
+double fare(double base, double km, double rate, {double discount = 0}) {
+  return base + km * rate - discount;
 }
 ```
 
-- A: `getProduct(6, 19, 10, 11);`
-- B: `getProduct(16, 9, 19);`
-- C: `getProduct(6, 19);`
-- D: `getProduct(18, 9, d4: 29);`
+- A: `fare(3.9, 5, 0.6, 1.5);`
+- B: `fare(3.9, 5, 0.6, discount: 1);`
+- C: `fare(3.9, 5);`
+- D: `fare(3.9, 5, discount: 1);`
 
 <details><summary><b>Answer</b></summary>
 <p>
 
 #### Answer: B
 
-Let's analyze each option:
-
-| Option | Call | Issue |
-|---|---|---|
-| **A ✗** | `getProduct(6, 19, 10, 11)` | 4th arg is positional, but `d4` is **named** — must use `d4: 11` |
-| **B ✓** | `getProduct(16, 9, 19)` | Correct! Three positional args supplied; `d4` defaults to 1 |
-| **C ✗** | `getProduct(6, 19)` | Missing required `d3` |
-| **D ✗** | `getProduct(18, 9, d4: 29)` | Missing required `d3` between `d2` and `d4` |
-
-**Key Insight:** Required positional parameters can NOT be skipped — even if you use named params for everything else. You must pass `d1`, `d2`, AND `d3`.
+- **A ✗** `discount` is named, so a fourth bare value is not allowed.
+- **B ✓** Three positional values, then the named one with its label.
+- **C ✗** `rate` is missing.
+- **D ✗** `rate` is still missing. A named value cannot replace it.
 
 </p>
 </details>
